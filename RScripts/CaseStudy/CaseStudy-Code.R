@@ -4,10 +4,10 @@ library(fields)
 source("~/Desktop/GEV-SAR/RScripts/CaseStudy/RCM-dataLoad.R")
 
 ## Save the data
-setwd("~/Desktop/Research/Proj2-SAR/GEV-SAR/Data/CaseStudy")
+setwd("~/Desktop/GEV-SAR/Data/CaseStudy")
 source("ColorPalette.R")
 
-load('AnnualMaxima-acrossNA.RData')
+load('~/Desktop/GEV-SAR/AnnualMaxima-acrossNA.RData')
 dim(annual_maxima) # 297 281  31
 
 ############ -- Cutting-off the ocean part -- ##################################
@@ -107,11 +107,11 @@ for(i in 1:length(annualMaxima16x16Boxes))
 
 
 ########################### --- BIAS-CORRECTION --- ############################
-setwd("~/Desktop/Research/Proj2-SAR/GEV-SAR/RScripts")
+setwd("~/Desktop/GEV-SAR/RScripts")
 source("requiredPackages.R")
 source("LKrigSimSAR.R")
 source("LKrigSAREvd.R")
-source("~/Desktop/Research/Proj2-SAR/GEV-SAR/RScripts/Proj2-Data2Evaluate.R")
+source("~/Desktop/GEV-SAR/RScripts/Proj2-Data2Evaluate.R")
 
 ## Loading the training parameter and test true parameters --:
 shape_true_train <- trainParameters[ , 1]
@@ -224,57 +224,10 @@ rand_tiles <- sample(seq_along(annualMaxima16x16Boxes),
                      replace=FALSE)
 print(rand_tiles)
 
-# set.seed(111)
-# rand_tiles <- sample(seq_along(annualMaxima16x16Boxes),
-#                      size=66,
-#                      replace=FALSE)
-# print(rand_tiles)
-# # rand_tiles <- c(108) # focused gulf of mexico
-# 
-# source("~/Desktop/Research/Proj2-SAR/GEV-SAR/RScripts/simulateSpatialExtFields.R")
-# R <- 1000
-# m <- 30  # Number of ensemble members
-# 
-# extremalFieldsList <- array(NA,
-#                             dim=c(R , length(rand_tiles),  256, m))
-# tilesList <- array(NA,
-#                    dim=c(R , length(rand_tiles), 256, 2))
-# 
-# centerList <- array(NA,
-#                     dim=c(R , length(rand_tiles), 2, 2))
-# tic()
-# for (r in 1:R) {
-#   cat('r: ', r, '\n')
-# 
-#   for (idx in seq_along(rand_tiles)) {  # Use seq_along for safe indexing
-#     i <- rand_tiles[idx]  # Get the actual tile index
-#     cat('i: ', i, '\n')
-# 
-#     if (i > length(gridPoints16x16Boxes)) {
-#       stop("Index out of bounds: ", i, " is larger than ",
-#            length(gridPoints16x16Boxes))
-#     }
-# 
-#     center <- gridPoints16x16Boxes[[i]]$center
-# 
-#     s_tile <- cbind(as.vector(gridPoints16x16Boxes[[i]]$lon),
-#                     as.vector(gridPoints16x16Boxes[[i]]$lat))
-# 
-#     tilesList[r, idx, , ] <- s_tile  # Use `idx` instead of `i`
-#     centerList[r, idx, , ] <- c(gridPoints16x16Boxes[[i]]$center)
-# 
-#     extremalFieldsList[r, idx, , ] <- generateSpatialExtFields(s_tile,
-#                                                                m,
-#                                                                parameters[i, , drop = FALSE])
-#   }
-# }
-# toc()
-# # 10.6 hrs
-# dim(extremalFieldsList)
-# 
+
 
 ## Save the data:
-setwd("~/Desktop/Research/Proj2-SAR/GEV-SAR/Data/CaseStudy")
+setwd("~/Desktop/GEV-SAR/Data/CaseStudy")
 # save(extremalFieldsList, 
 #      file='extremalFieldsList-CS.RData')
 
@@ -352,7 +305,7 @@ p_vec <- seq(0.01, 0.99, length.out=100)
 # dim(biasCorExtremalFields)
 # # elapsed time: 526.125 sec 
 
-setwd("~/Desktop/Research/Proj2-SAR/GEV-SAR/Data/CaseStudy")
+setwd("~/Desktop/GEV-SAR/Data/CaseStudy")
 # save(biasCorExtremalFields,
 #      file='biasCorExtremalFields-CS.RData')
 load('biasCorExtremalFields-CS.RData')
@@ -379,7 +332,7 @@ bubblePlot(tilesList[1,1, , ],
 
 
 # ## ----- COMPUTE and COMPARE THE MADOGRAM -------------------------------------:
-source("~/Desktop/Research/Proj2-SAR/GEV-SAR/RScripts/Madogram-similar2fields.R")
+source("~/Desktop/GEV-SAR/RScripts/Madogram-similar2fields.R")
 common_breaks <- seq(0, 10, length.out=50)  # 50 distance bins
 
 # Compute madogram for simulated data
