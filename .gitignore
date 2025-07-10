@@ -1,5 +1,9 @@
-# Object file
-*.o
+# R data files
+*.RData
+*.rda
 
-# Ada Library Information
-*.ali
+# NumPy arrays
+*.npy
+
+# CSV data exports
+*.csv
