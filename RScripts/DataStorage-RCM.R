@@ -1,5 +1,5 @@
 rm(list=ls())
-source("~/Desktop/Research/Proj2-SAR/GEV-SAR/RScripts/CaseStudy/RCM-dataLoad.R")
+source("~/Desktop/GEV-SAR/RScripts/CaseStudy/RCM-dataLoad.R")
 
 ## packages required
 library(rnaturalearth)
@@ -24,30 +24,6 @@ image.plot(x=lon_data,
            ylab="Latitude",
            main="Spatial Domain NA-CORDEX")
 world(add=TRUE)
-
-# ## -- Just land:
-# land <- getMap(resolution = "low")
-# plot(land, col = "grey80",
-#      border = "black",
-#      xlim = c(-160, -50), 
-#      ylim = c(10, 80),
-#      xlab = "Longitude", 
-#      ylab = "Latitude",
-#      main = "Spatial Domain NA-CORDEX (Land Only)")
-# 
-# ## Just America:
-# land <- getMap(resolution = "low")
-# usa <- land[land$ADMIN == "United States of America", ]
-# 
-# # Plot only the USA region
-# plot(usa,
-#      col = "grey80",
-#      border = "black",
-#      xlim = c(-130, -60),
-#      ylim = c(20, 36),  # Focus on CONUS (Continental US)
-#      xlab = "Longitude", ylab = "Latitude",
-#      main = "Spatial Domain: USA Only")
-
 
 ### ---  Just extract the USA spatial fields --- ###
 # Convert longitude & latitude to spatial points
@@ -106,12 +82,3 @@ lat_usa <- lat_vec[valid_indices]
 
 plot(lon_usa, lat_usa, cex=0.5)
 world(add=T, col='grey', lwd=3)
-
-## ------------------------------------------------------- ##
-# setwd("~/Desktop/Research/Proj2-SAR/GEV-SAR/Data/CaseStudy")
-
-# usa_loc <- cbind(lon_usa,lat_usa)
-# dim(usa_loc) # 6221    2
-
-# save(usa_precip_data, file="USA-RCM-Precip.RData" )
-# save(usa_loc, file="spatialLoc-USA-RCM.RData")
