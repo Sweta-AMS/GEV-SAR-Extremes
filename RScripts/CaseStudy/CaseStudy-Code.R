@@ -1,11 +1,11 @@
 rm(list=ls())
 library(tictoc)
 library(fields)
-source("~/Desktop/Research/Proj2-SAR/GEV-SAR/RScripts/CaseStudy/RCM-dataLoad.R")
+source("~/Desktop/GEV-SAR/RScripts/CaseStudy/RCM-dataLoad.R")
 
 ## Save the data
 setwd("~/Desktop/Research/Proj2-SAR/GEV-SAR/Data/CaseStudy")
-source("~/Desktop/Research/Proj2-SAR/GEV-SAR/RScripts/CaseStudy/ColorPalette.R")
+source("ColorPalette.R")
 
 load('AnnualMaxima-acrossNA.RData')
 dim(annual_maxima) # 297 281  31
