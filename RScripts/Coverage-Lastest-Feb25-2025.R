@@ -2,7 +2,7 @@
 rm(list=ls())
 
 ## -- Load the true parameter configuration along with the dataset --:
-setwd("~/Desktop/Research/Proj2-SAR/GEV-SAR/Data/Coverage")
+setwd("~/Desktop/GEV-SAR/Data/Coverage")
 load('PC-cvg-Test-Rep30-Feb22-2025.RData')
 dim(parameterCombCvg) #  343   3
 
@@ -84,131 +84,9 @@ surface(fit_tps_rmse_lnTau ,
         col=colorRampPalette(brewer.pal(11, "RdBu"))(100),
         main= 'RMSE OF lnTau - Rep1') # image plot for the shape parameter
 
-# library(RColorBrewer)
-# # Comparitive Plot
-# setwd("~/Desktop")
-# png("RMSE-Rep1.png",
-#     units="in", 
-#     width=32,
-#     height=10,
-#     res=200)
-# par(mfrow=c(1,3), 
-#     mai=c(18.5, 8,18,16),
-#     mar=c(8,13,12.5,10) + 0.3,
-#     oma=c(0.4,8,6,9))
-# 
-# # Xi
-# surface(fit_tps_rmse_Xi_rep1 ,
-#         zlim=c(0.03,0.15),
-#         yaxt='n',
-#         xaxt='n',
-#         xlab='',
-#         ylab= '',
-#         legend.width=5,
-#         col=colorRampPalette(brewer.pal(11, "RdBu"))(100),  # Corrected
-#         cex.main=7,
-#         axis.args=list(cex.axis=3.5,lwd=2))
-# axis(2,
-#      las=1,
-#      cex.axis=4,
-#      lwd=2,
-#      padj=0.9)
-# axis(1,
-#      cex.axis=4,
-#      lwd=2,
-#      padj=0.9)
-# mtext(expression(xi),
-#       side=2,
-#       cex=4,
-#       line=6,
-#       las=3)
-# mtext(expression('log('~kappa~')'),
-#       side=1,
-#       cex=3,
-#       line=7.2)
-# mtext(expression('RMSE( '~xi~' )'),
-#       side=3,
-#       cex=3.5,
-#       line=3.5)
-# 
-# 
-# 
-# # ln kappa
-# surface(fit_tps_rmse_lnKappa_rep1,
-#         zlim=c(0.05,0.6),
-#         yaxt='n',
-#         xaxt='n',
-#         xlab='',
-#         ylab= '',
-#         legend.width=5,
-#         cex.main=7,
-#         col=colorRampPalette(brewer.pal(11, "RdBu"))(100),  # Corrected
-#         axis.args=list(cex.axis=3.5,lwd=2))
-# axis(2,
-#      las=1,
-#      cex.axis=4,
-#      lwd=2,
-#      padj=0.9)
-# axis(1,
-#      cex.axis=4,
-#      lwd=2,
-#      padj=0.9)
-# mtext(expression(xi),
-#       side=2,
-#       cex=4,
-#       line=6,
-#       las=3)
-# mtext(expression('log('~kappa~')'),
-#       side=1,
-#       cex=3,
-#       line=7.2)
-# mtext(expression('RMSE( log('~kappa~') )'),
-#       side=3,
-#       cex=3.5,
-#       line=3.5)
-# 
-# mtext('n=1',
-#       side=3,
-#       cex=4,
-#       line=10)
-# 
-# ## ln Tau
-# surface(fit_tps_rmse_lnTau_rep1,
-#         zlim=c(0.05,0.6),
-#         yaxt='n',
-#         xaxt='n',
-#         xlab='',
-#         ylab= '',
-#         legend.width=5,
-#         cex.main=7,
-#         col=colorRampPalette(brewer.pal(11, "RdBu"))(100),  # Corrected
-#         axis.args=list(cex.axis=3.5,lwd=2))
-# axis(2,
-#      las=1,
-#      cex.axis=4,
-#      lwd=2,
-#      padj=0.9)
-# axis(1,
-#      cex.axis=4,
-#      lwd=2,
-#      padj=0.9)
-# mtext(expression('log('~tau~')'),
-#       side=2,
-#       cex=3,
-#       line=5.5,
-#       las=3)
-# mtext(expression('log('~kappa~')'),
-#       side=1,
-#       cex=3,
-#       line=7.2)
-# mtext(expression('RMSE( log('~tau~') )'),
-#       side=3,
-#       cex=3.5,
-#       line=3.5)
-# dev.off()
 
 ## -- Compute the coverage probability --: 
-source("~/Desktop/Research/Proj2-SAR/GEV-SAR/RScripts/Proj2-Data2Evaluate.R")
+source("~/Desktop/GEV-SAR/RScripts/Proj2-Data2Evaluate.R")
 shape_true_train <- trainParameters[ , 1]
 kappa2_true_train <- (trainParameters[ , 2]-4)
 tau2_true_train <- (trainParameters[ , 3])
@@ -304,9 +182,7 @@ for(i in 1:dim(cnnEst)[1])
 
 
 ##### ------ SURFACE PROBABILITY PLOT ---- #####
-### -- Surface plot of coverage probability--:
 True_parameter <- cbind( 0.5*log(parameterCombCvg[,3]), 0.5*log(parameterCombCvg[,2]-4) )
-# True_parameter <- cbind(0.5*log(parameterCombCvg[,2]-4), (parameterCombCvg[,1]))
 dim(True_parameter) # 100 x 2 
 
 summary( xiCoverage)
@@ -321,18 +197,12 @@ fit_tps_cvg_shape <- Tps(True_parameter,
                          xiCoverage,
                          df=10)
 
-# True_parameterKappa <- cbind(0.5*log(parameterCombCvg[,3]),
-#                              0.5*log(parameterCombCvg[,2]-4))
-# dim(True_parameterKappa) # 100 x 2 
-
 fit_tps_cvg_logKappa <- Tps(True_parameter,
                             kappaCoverage,
                             df=10)
 
 
-# True_parameterTau <- cbind(0.5*log(parameterCombCvg[,2]-4),
-#                            0.5*log(parameterCombCvg[,3]))
-# dim(True_parameterTau) # 100 x 2 
+
 
 ## Not using right now
 fit_tps_cvg_logTau <- Tps(True_parameter,
@@ -355,7 +225,6 @@ ramp <- colorRamp(c("blue", "white", "red"))
 # colorTableII<- rgb( ramp(seq(0, 1,length=50)), max=255)
 
 ## Plot Coverage: 
-setwd("~/Desktop")
 png("CvgSurf.png",
     units="in", 
     width=33, # changed from 33
@@ -480,24 +349,3 @@ mtext(expression('log('~tau~')'), #('log('~tau~')')
       cex=3.8,
       line=8)
 dev.off()
-
-
-
-# Ensure XB is properly initialized
-# XB <- matrix(NA, 
-#              nrow = nrow(parameterCombCvg), 
-#              ncol = ncol(XB))
-# dim(XB)
-# for(i in 1:nrow(XB))
-# {
-#   # true_p <- 0.5 * log(parameterCombCvg[i, 2] - 4)
-#   for(j in 1:ncol(XB))
-#   {
-#     XB[i, j] <- as.integer(QRKappaEst[i,j,1] < 0.5*log(parameterCombCvg[i,2]-4) & 
-#                    QRKappaEst[i,j,2] > 0.5*log(parameterCombCvg[i,2]-4))
-#       # as.integer(QRKappaEst[i, j, 1] < true_p & true_p < QRKappaEst[i, j, 2])
-#   }
-# }
-
-
-
