@@ -14,7 +14,7 @@ library(ncdf4)
 # remotes::install_version("maptools", version = "1.1-7", repos = "http://cran.us.r-project.org")
 # remotes::install_version("rgdal", version = "1.1-1", repos = "http://cran.us.r-project.org")
 
-source("~/Desktop/Research/Proj2-SAR/GEV-SAR/RScripts/CaseStudy/RCM-dataLoad.R")
+source("~/Desktop/GEV-SAR/RScripts/CaseStudy/RCM-dataLoad.R")
 
 # Extract Lambert Conformal Projection parameters
 proj <- ncatt_get(nc_file, "Lambert_Conformal")
@@ -56,7 +56,7 @@ latitude_origin <- proj$latitude_of_projection_origin
 # save(annual_maxima, file='AnnualMaxima-acrossNA.RData')
 
 ## Save the data
-setwd("~/Desktop/Research/Proj2-SAR/GEV-SAR/Data/CaseStudy")
+setwd("~/Desktop/GEV-SAR/Data")
 load('AnnualMaxima-acrossNA.RData')
 dim(annual_maxima) # 297 281  31
 
@@ -122,7 +122,6 @@ color_palette <- colorRampPalette(c("darkblue", "lightblue", "white", "orange", 
 
 
 #################### -- Data Exploration -- ####################################
-setwd('~/Desktop')
 png("RCM-annualMax.png",
     units="in", 
     width=24,
@@ -305,7 +304,6 @@ step <- 16  # 50% overlap (step = grid_size / 2)
 n_lon <- dim(lon_data_new)[1]
 n_lat <- dim(lat_data_new)[2]
 
-setwd('~/Desktop')
 png("Spatial-Domain.png",
     units="in",
     width=24,
