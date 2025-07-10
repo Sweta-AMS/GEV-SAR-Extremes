@@ -1,4 +1,16 @@
+<<<<<<< HEAD
 Data/
 Result_UQ_BPs/*.csv
 Result_UQ_BPs/*.npy
 
+=======
+# R data files
+*.RData
+*.rda
+
+# NumPy arrays
+*.npy
+
+# CSV data exports
+*.csv
+>>>>>>> 2006d0398ddf2d1a758ff9d15ff3b74d71ed6c28
